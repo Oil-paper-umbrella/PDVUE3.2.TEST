@@ -30,13 +30,26 @@ export default {
       checkedVal: [1, 1]
     };
   },
-  created() {
-    // 向后台发送数据请求
-    this.requestAllIndexs();
-    this.requestAllTimes();
-    this.checkedVal[0] = this.$route.params.module;
-    this.checkedVal[1] = this.$route.params.time;
-    this.requestOneModuleData(this.checkedVal[1], this.checkedVal[0]);
+  mounted() {
+    this.setClient();
+    /**
+     * APi请求队列
+     * */
+    let getApi = [
+      getOneModual({ timeid: 1, moduleid: 1 }),
+      requestCommonData.getAllTimes(),
+      requestCommonData.getAllIndexs()
+    ];
+    /**
+     * 响应数据处理队列
+     * */
+    let resApi = [
+      this.requestOneModuleData,
+      this.requestAllTimes,
+      this.requestAllIndexs
+    ];
+    //请求组件所需要数据
+    this.reqGetInfo(getApi, resApi);
   },
   methods: {
     setClient() {
@@ -46,31 +59,40 @@ export default {
       console.log(clientHeight);
       this.clientHeight = clientHeight - 125 + "px";
     },
-    requestOneModuleData(timeid, indexid) {
-      getOneModual({
-        timeid: timeid,
-        moduleid: indexid
-      }).then(data => {
-        console.log(data);
-        this.$nextTick(() => {
-          this.oneModulePieCharts(data.data.data);
+    reqGetInfo(getApi, resApi) {
+      /**
+       * 异步请求数据
+       * */
+      let result = Promise.all(getApi);
+      result
+        .then(data => {
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].code === 0) {
+              resApi[i](data[i].data);
+            } else {
+              throw new Error(data[i].message);
+            }
+          }
+        })
+        .catch(error => {
+          throw error;
         });
-      });
+    },
+    requestOneModuleData(data) {
+      this.oneModulePieCharts(data);
     },
     // 请求所有指标
-    requestAllIndexs() {
-      requestCommonData.getAllIndexs().then(data => {
-        this.allIndexs = new dataPublicFun(data.data.data).getAllIndexs(
+    requestAllIndexs(data) {
+      console.log("pie",this.allTimes);
+      this.allIndexs = new dataPublicFun(data).getAllIndexs(
           "bar",
           this.allTimes
         );
-      });
     },
     // 请求所有季度
-    requestAllTimes() {
-      requestCommonData.getAllTimes().then(data => {
-        this.allTimes = new dataPublicFun(data.data.data).getAllTimes();
-      });
+    requestAllTimes(data) {
+      console.log("pie allTimes",data);
+      this.allTimes = new dataPublicFun(data).getAllTimes();
     },
     oneModulePieCharts(data) {
       this.myChart = new optionPublicFun().init("one-module-container");
@@ -83,14 +105,12 @@ export default {
       });
     }
   },
-  mounted() {
-    this.setClient();
-  },
   watch: {
     checkedVal: {
       handler: function(val) {
-        console.log(val);
-        this.requestOneModuleData(val[1], val[0]);
+        let getApi = [getOneModual({ timeid: val[1], moduleid: val[0] })];
+        let resApi = [this.requestOneModuleData];
+        this.reqGetInfo(getApi, resApi);
       }
     }
   }

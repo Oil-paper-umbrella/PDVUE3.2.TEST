@@ -4,7 +4,7 @@ import store from "../../store/store.js";
 import * as types from  "../../store/types.js";
 
 
-let Login =()=>import("../../pages/login/Login.vue") ;
+// let Login =()=>import("../../pages/login/Login.vue") ;
 let Index =()=>import("../../pages/index/view/Index.vue") ;
 let IndexHome =()=>import('../../components/IndexHome.vue');
 let Raw =()=>import('../../components/subcomponents/data/Raw.vue')

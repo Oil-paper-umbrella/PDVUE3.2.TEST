@@ -35,30 +35,61 @@ export default {
       checkedVal: 1
     };
   },
-  created() {
-    // 向后台发送数据请求
-    this.requestAllTimes();
-    this.requestFourModualData(this.checkedVal);
+  mounted() {
+    let nowPath = this.$route.path;
+    if (nowPath == "/whole/pie") {
+      this.setClient();
+    } else if (nowPath == "/whole") {
+      this.flag = true;
+    }
+    /**
+     * APi请求队列
+     * */
+    let getApi = [
+      getFourModual({ timeid: 2 }),
+      requestCommonData.getAllTimes()
+    ];
+    /**
+     * 响应数据处理队列
+     * */
+    let resApi = [this.requestFourModualData, this.requestAllTimes];
+    //请求组件所需要数据
+    this.reqGetInfo(getApi, resApi);
   },
   methods: {
+    reqGetInfo(getApi, resApi) {
+      /**
+       * 异步请求数据
+       * */
+      let result = Promise.all(getApi);
+      result
+        .then(data => {
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].code === 0) {
+              resApi[i](data[i].data);
+            } else {
+              throw new Error(data[i].message);
+            }
+          }
+        })
+        .catch(error => {
+          throw error;
+        });
+    },
     /**
      * @namespace requestFourModualData 向后台发起请求
      * @param timeid 季度
      */
-    requestFourModualData(timeid) {
-      getFourModual({ timeid: timeid }).then(data => {
-        this.$nextTick(() => {
-          this.setLegendStyle(this.flag);
-          this.fourModulesPieCharts(data.data.data);
-        });
-      });
+    requestFourModualData(data) {
+      console.log("pie" +data);
+      this.setLegendStyle(this.flag);
+      this.fourModulesPieCharts(data);
     },
     // 请求所有季度
-    requestAllTimes() {
-      requestCommonData.getAllTimes().then(data => {
-        this.allTimes = new dataPublicFun(data.data.data).getAllTimes();
-        console.log(this.allTimes);
-      });
+    requestAllTimes(data) {
+      console.log("pie alltime",data);
+      this.allTimes = new dataPublicFun(data).getAllTimes();
+      console.log(this.allTimes);
     },
     setLegendStyle(flag) {
       // 设置 legend 样式参数
@@ -109,18 +140,12 @@ export default {
       });
     }
   },
-  mounted() {
-    let nowPath = this.$route.path;
-    if (nowPath == "/whole/pie") {
-      this.setClient();
-    } else if (nowPath == "/whole") {
-      this.flag = true;
-    }
-  },
   watch: {
     checkedVal: {
       handler: function(val) {
-        this.requestFourModualData(val[0]);
+        let getApi = [getFourModual({ timeid: val[0] })];
+        let resApi = [this.requestFourModualData];
+        this.reqGetInfo(getApi, resApi);
       }
     }
   }

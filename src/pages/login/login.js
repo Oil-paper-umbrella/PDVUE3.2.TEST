@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Login from './Login'
+import Login from './Login.vue'
 import store from '../../store'
 import axios from '../../control/filter/http.js'
 import VueAxios from 'vue-axios'

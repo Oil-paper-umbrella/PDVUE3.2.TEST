@@ -15,12 +15,12 @@ import dataLineFun from "./dataLine.js";
 import optionLineFun from "./optionLine.js";
 import requestCommonData from "../../../api/common.js";
 import getLineChart from "../../../api/line.js";
-require("echarts/lib/chart/line")
-require("echarts/lib/component/tooltip")
-require("echarts/lib/component/legend")
-require("echarts/lib/component/legendScroll")
-require("echarts/lib/component/grid")
-require("echarts/lib/component/dataZoom")
+require("echarts/lib/chart/line");
+require("echarts/lib/component/tooltip");
+require("echarts/lib/component/legend");
+require("echarts/lib/component/legendScroll");
+require("echarts/lib/component/grid");
+require("echarts/lib/component/dataZoom");
 const selectedCity = {
   平顶山: true,
   安阳: false,
@@ -60,46 +60,59 @@ export default {
       checkedVal: [8] // 选中的 指标参数 和 季度参数
     };
   },
-  created() {
-    this.requestAllIndexs();
-    this.requestLineChartData(this.checkedVal[0]);
+  mounted() {
+    let nowPath = this.$route.path;
+    if (nowPath == "/whole/line") {
+      this.setClient();
+    } else if (nowPath == "/whole") {
+      this.flag = true;
+    }
+    /**
+     * APi请求队列
+     * */
+    let getApi = [
+      getLineChart({ indexid: 2 }),
+      requestCommonData.getAllIndexs()
+    ];
+    /**
+     * 响应数据处理队列
+     * */
+    let resApi = [this.requestLineChartData, this.requestAllIndexs];
+    //请求组件所需要数据
+    this.reqGetInfo(getApi, resApi);
   },
   methods: {
-    setClient() {
-      let clientHeight = document.documentElement
-        ? document.documentElement.clientHeight
-        : document.body.clientHeight;
-      console.log(clientHeight);
-      this.clientHeight = clientHeight - 125 + "px";
+    reqGetInfo(getApi, resApi) {
+      /**
+       * 异步请求数据
+       * */
+      let result = Promise.all(getApi);
+      result
+        .then(data => {
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].code === 0) {
+              resApi[i](data[i].data);
+            } else {
+              throw new Error(data[i].message);
+            }
+          }
+        })
+        .catch(error => {
+          throw error;
+        });
     },
-    // 设置 折线图 样式
-    setLineStyle(flag) {
-      if (flag) {
-        this.lineStyle.weight = "normal";
-        this.lineStyle.size = 12;
-        this.lineStyle.orientData = "horizontal";
-        this.lineStyle.zoomHeight = "20";
+    requestLineChartData(data) {
+      console.log("line", data);
+      if (data.allTimes.length <= 1 && data.allTimes[0] == "期初值") {
+        this.$message.error("该指标只有期初值");
+      } else {
+        this.setLineStyle(this.flag);
+        this.lineCharts(data);
       }
     },
-    // 请求折线图数据
-    requestLineChartData(indexid) {
-      getLineChart({ indexid: indexid }).then(data => {
-        this.$nextTick(() => {
-          if (
-            data.data.data.allTimes.length <= 1 &&
-            data.data.data.allTimes[0] == "初期值"
-          )
-            this.$message.error("该指标只有期初值");
-          this.setLineStyle(this.flag);
-          this.lineCharts(data.data.data);
-        });
-      });
-    },
-    // 请求所有指标
-    requestAllIndexs() {
-      requestCommonData.getAllIndexs().then(data => {
-        this.allIndexs = new dataPublicFun(data.data.data).getAllIndexs("line");
-      });
+    requestAllIndexs(data) {
+      console.log("this is Allindex", data);
+      this.allIndexs = new dataPublicFun(data).getAllIndexs("line");
     },
     lineCharts(data) {
       let pd_this = this;
@@ -147,20 +160,31 @@ export default {
           );
         }
       });
-    }
-  },
-  mounted() {
-    let nowPath = this.$route.path;
-    if (nowPath == "/whole/line") {
-      this.setClient();
-    } else if (nowPath == "/whole") {
-      this.flag = true;
+    },
+    
+    setClient() {
+      let clientHeight = document.documentElement
+        ? document.documentElement.clientHeight
+        : document.body.clientHeight;
+      console.log(clientHeight);
+      this.clientHeight = clientHeight - 125 + "px";
+    },
+    // 设置 折线图 样式
+    setLineStyle(flag) {
+      if (flag) {
+        this.lineStyle.weight = "normal";
+        this.lineStyle.size = 12;
+        this.lineStyle.orientData = "horizontal";
+        this.lineStyle.zoomHeight = "20";
+      }
     }
   },
   watch: {
     checkedVal: {
       handler: function(val) {
-        this.requestLineChartData(val[0]);
+        let getApi = [getLineChart({ indexid: val[0] })];
+        let resApi = [this.requestLineChartData];
+        this.reqGetInfo(getApi, resApi);
       }
     }
   }
