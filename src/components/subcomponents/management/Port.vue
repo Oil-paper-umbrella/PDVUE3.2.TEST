@@ -32,7 +32,7 @@
       </el-table>
     </el-row>
     <el-dialog title="提示" :visible.sync="delDialog" width="30%" v-dialogDrag>
-      <span>空间删除需谨慎，确认要删除-{{ operationName }}-这个空间么？</span>
+      <span>删除表格需谨慎，确认要删除这个表格么？</span>
       <span slot="footer" class="dialog-footer">
         <el-button @click="delDialog=false">取 消</el-button>
         <el-button type="primary" @click="delTable">确 定</el-button>

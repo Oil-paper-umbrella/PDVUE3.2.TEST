@@ -1,6 +1,6 @@
 <template>
   <div>
-    指标设定
+    <p>该功能尚未开发</p>
   </div>
 </template>
 <script>

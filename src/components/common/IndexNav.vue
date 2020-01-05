@@ -81,6 +81,12 @@ export default {
 <style lang="scss">
 .index-nav {
   width: 100%;
+  .el-icon-alixiaoxi {
+    color: #fff;
+  }
+  .el-icon-alixiaoxi:hover {
+    color: #409eff;
+  }
   .nav-row {
     text-align: center;
     .item {

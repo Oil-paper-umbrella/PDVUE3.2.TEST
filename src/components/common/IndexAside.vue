@@ -49,10 +49,6 @@ export default {
         { route: "/role", name: "角色管理" },
         { route: "/setindex", name: "指标设定" },
         { route: "/port", name: "数据导入、导出" },
-        { route: "/operation", name: "数据操作" },
-        { route: "/dataAnalysis", name: "数据分析" },
-        { route: "/forecast", name: "指标预测" },
-        { route: "/interface", name: "接口管理" },
         { route: "/message", name: "邮件箱" }
       ]
     };

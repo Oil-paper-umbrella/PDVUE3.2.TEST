@@ -102,7 +102,6 @@ export default {
         });
     },
     requestLineChartData(data) {
-      console.log("line", data);
       if (data.allTimes.length <= 1 && data.allTimes[0] == "期初值") {
         this.$message.error("该指标只有期初值");
       } else {
@@ -111,7 +110,6 @@ export default {
       }
     },
     requestAllIndexs(data) {
-      console.log("this is Allindex", data);
       this.allIndexs = new dataPublicFun(data).getAllIndexs("line");
     },
     lineCharts(data) {
@@ -166,7 +164,6 @@ export default {
       let clientHeight = document.documentElement
         ? document.documentElement.clientHeight
         : document.body.clientHeight;
-      console.log(clientHeight);
       this.clientHeight = clientHeight - 125 + "px";
     },
     // 设置 折线图 样式
@@ -211,6 +208,7 @@ export default {
     }
     .menu-name {
       font-size: 13px;
+      color: #60c1de;
     }
   }
   #line-container {

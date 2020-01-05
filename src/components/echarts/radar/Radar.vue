@@ -97,7 +97,6 @@ export default {
       let clientHeight = document.documentElement
         ? document.documentElement.clientHeight
         : document.body.clientHeight;
-      console.log(clientHeight);
       this.clientHeight = clientHeight - 125 + "px";
     },
     setLegendStyle() {

@@ -1,6 +1,6 @@
 <template>
   <div class="pd-app-analysis">
-    数据分析
+    <p>该功能尚未开发</p>
   </div>
 </template>
 <script>

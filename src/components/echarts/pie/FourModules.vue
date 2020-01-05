@@ -81,15 +81,12 @@ export default {
      * @param timeid 季度
      */
     requestFourModualData(data) {
-      console.log("pie" +data);
       this.setLegendStyle(this.flag);
       this.fourModulesPieCharts(data);
     },
     // 请求所有季度
     requestAllTimes(data) {
-      console.log("pie alltime",data);
       this.allTimes = new dataPublicFun(data).getAllTimes();
-      console.log(this.allTimes);
     },
     setLegendStyle(flag) {
       // 设置 legend 样式参数
@@ -103,7 +100,6 @@ export default {
       let clientHeight = document.documentElement
         ? document.documentElement.clientHeight
         : document.body.clientHeight;
-      console.log(clientHeight);
       this.clientHeight = clientHeight - 125 + "px";
     },
     // pie 数据渲染
@@ -130,13 +126,11 @@ export default {
           着力创新创效能力提升: "3",
           基础保障力提升: "4"
         };
-        console.log(status[params.name]);
         if (!this.flag) {
           this.$router.push({
             path: "/whole/subpie/" + this.checkedVal + "/" + status[params.name]
           });
         }
-        // console.log(params);
       });
     }
   },

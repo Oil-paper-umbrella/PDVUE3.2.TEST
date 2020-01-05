@@ -7,7 +7,7 @@ let getFourModules = async function (body) {
   return new Promise((resolve, reject) => {
     axios.post('/dianye/rest/JsonData/FourModual', body)
       .then(data => {
-        console.log(data.status)
+        console.log("modules",data.data);
         if (data.status === 200) {
           //处理状态
           resolve(data.data);

@@ -30,17 +30,17 @@ class dataPublicFun {
   maxScore() {
     let allCityScore = this.data.cityScore;
     let maxScore = this.data.cityScore[18].datas;
-    if(allCityScore.length<=0)
+    if (allCityScore.length <= 0)
       throw new Error("The number of cities score of 0");
     return maxScore;
   }
   /**
-  * @minScore 最低分
-  */
+   * @minScore 最低分
+   */
   minScore() {
     let allCityScore = this.data.cityScore;
     let minScore = Math.floor(this.data.cityScore[19].datas);
-    if(allCityScore.length<=0)
+    if (allCityScore.length <= 0)
       throw new Error("The number of cities score of 0");
     return minScore;
   }
@@ -50,36 +50,45 @@ class dataPublicFun {
    * @param {指标所有季度} times 
    */
   getAllIndexs(type, times) {
-    console
     let allIndexs = []; // 所有指标数组
     let indexObj; // 一个指标对象
     let indexs = this.data.Allindexs; // 获取从后台请求过来的所有指标
     let status = {
-      "bar": (indexid,indexName,times)=> {
+      "bar": (indexid, indexName, times) => {
         return {
           value: indexid,
           label: indexName,
           children: times
         }
       },
-      "line": (indexid,indexName) => {
+      "line": (indexid, indexName) => {
         return {
           value: indexid,
           label: indexName
         }
+      },
+      "pie": (indexid, indexName, times) => {
+        return {
+          value: indexid,
+          label: indexName,
+          children: times
+        }
       }
     }
-    if(indexs.length<=0)
-      throw new Error("The number of indexs of 0");
-    for (let i = 0; i < indexs.length; i++) {
-      let indexid = indexs[i].iid;
-      let indexName = indexs[i].indexName;
-      if (status[type]) 
-        indexObj = status[type](indexid,indexName,times);
-      else
-        throw new Error("The type is couldn't find");
-      allIndexs.push(indexObj);
+    if (type === "pie") {
+      indexs = this.data;
     }
+    if (indexs.length <= 0)
+        throw new Error("The number of indexs of 0");
+      for (let i = 0; i < indexs.length; i++) {
+        let indexid = indexs[i].iid;
+        let indexName = indexs[i].indexName;
+        if (status[type])
+          indexObj = status[type](indexid, indexName, times);
+        else
+          throw new Error("The type is couldn't find");
+        allIndexs.push(indexObj);
+      }
     return allIndexs
   }
   /**
@@ -88,7 +97,7 @@ class dataPublicFun {
   getAllTimes() {
     let allTimes = [];
     let times = this.data.Alltime;
-    if(times.length<=0)
+    if (times.length <= 0)
       throw new Error("The number of times of 0");
     for (let i = 0; i < times.length; i++) {
       let timeid = times[i].tid;

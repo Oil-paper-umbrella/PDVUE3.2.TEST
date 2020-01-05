@@ -11,10 +11,10 @@
 <script>
 import optionPublicFun from "../../../utils/optionPublic.js";
 import optionPieFun from "./optionPie.js";
+import getFourModual from "../../../api/modules.js";
 import getOneModual from "../../../api/oneModule.js";
 import requestCommonData from "../../../api/common.js";
 import dataPublicFun from "../../../utils/dataPublic";
-// import router from '../../../pages/index/router';
 const colors = ["#FCD85A", "#0084C8", "#D8514B", "#9CCB63"];
 require("echarts/lib/chart/pie");
 require("echarts/lib/component/tooltip");
@@ -27,18 +27,25 @@ export default {
       myChart: {},
       allIndexs: [],
       allTimes: [],
-      checkedVal: [1, 1]
+      checkedVal: [],
+      indexs: []
     };
   },
   mounted() {
     this.setClient();
+    let m = parseInt(this.$route.params.module);
+    let t = parseInt(this.$route.params.time);
+    this.checkedVal = [m, t];
     /**
      * APi请求队列
      * */
     let getApi = [
-      getOneModual({ timeid: 1, moduleid: 1 }),
+      getOneModual({
+        timeid: this.$route.params.time,
+        moduleid: this.$route.params.module
+      }),
       requestCommonData.getAllTimes(),
-      requestCommonData.getAllIndexs()
+      getFourModual({ timeid: this.checkedVal[1] })
     ];
     /**
      * 响应数据处理队列
@@ -46,7 +53,7 @@ export default {
     let resApi = [
       this.requestOneModuleData,
       this.requestAllTimes,
-      this.requestAllIndexs
+      this.requestFourModulesData
     ];
     //请求组件所需要数据
     this.reqGetInfo(getApi, resApi);
@@ -56,7 +63,6 @@ export default {
       let clientHeight = document.documentElement
         ? document.documentElement.clientHeight
         : document.body.clientHeight;
-      console.log(clientHeight);
       this.clientHeight = clientHeight - 125 + "px";
     },
     reqGetInfo(getApi, resApi) {
@@ -81,17 +87,21 @@ export default {
     requestOneModuleData(data) {
       this.oneModulePieCharts(data);
     },
-    // 请求所有指标
-    requestAllIndexs(data) {
-      console.log("pie",this.allTimes);
-      this.allIndexs = new dataPublicFun(data).getAllIndexs(
-          "bar",
-          this.allTimes
-        );
+    //请求所有指标
+    requestFourModulesData(data) {
+      for (let i = 0; i < data.ModuleValue.length; i++) {
+        this.indexs.push({
+          iid: data.ModuleValue[i].id,
+          indexName: data.ModuleValue[i].moduleName
+        });
+      }
+      this.allIndexs = new dataPublicFun(this.indexs).getAllIndexs(
+        "pie",
+        this.allTimes
+      );
     },
     // 请求所有季度
     requestAllTimes(data) {
-      console.log("pie allTimes",data);
       this.allTimes = new dataPublicFun(data).getAllTimes();
     },
     oneModulePieCharts(data) {

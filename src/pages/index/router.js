@@ -7,16 +7,11 @@ import * as types from  "../../store/types.js";
 // let Login =()=>import("../../pages/login/Login.vue") ;
 let Index =()=>import("../../pages/index/view/Index.vue") ;
 let IndexHome =()=>import('../../components/IndexHome.vue');
-let Raw =()=>import('../../components/subcomponents/data/Raw.vue')
 let Cluster =()=>import('../../components/subcomponents/data/Cluster.vue')
 let Analysis =()=>import('../../components/subcomponents/data/Analysis.vue')
 let Jurisdiction =()=>import('../../components/subcomponents/management/Jurisdiction.vue')
 let SetIndex =()=>import('../../components/subcomponents/management/SetIndex.vue') ;
 let Port =()=>import('../../components/subcomponents/management/Port.vue')
-let Operation =()=>import('../../components/subcomponents/management/Operation.vue');
-let DataAnalysis =()=>import('../../components/subcomponents/management/DataAnalysis.vue')
-let Forecast =()=>import('../../components/subcomponents/management/Forecast.vue')
-let Interface =()=>import('../../components/subcomponents/management/Interface.vue')
 let User =()=>import('../../components/subcomponents/management/User.vue')
 let Role =()=>import('../../components/subcomponents/management/Role.vue')
 let Message =()=>import('../../components/subcomponents/management/Message.vue')
@@ -42,11 +37,6 @@ let routes = [
         path: '/home',
         name: '首页',
         component: IndexHome
-      },
-      {
-        path: '/raw',
-        name: '原始数据展示',
-        component: Raw
       },
       {
         path: '/cluster',
@@ -77,26 +67,6 @@ let routes = [
         path: '/port',
         name: '数据导入、导出',
         component: Port
-      },
-      {
-        path: '/operation',
-        name: '数据操作',
-        component: Operation
-      },
-      {
-        path: '/dataAnalysis',
-        name: '数据分析',
-        component: DataAnalysis
-      },
-      {
-        path: '/forecast',
-        name: '指标预测',
-        component: Forecast
-      },
-      {
-        path: '/interface',
-        name: '接口管理',
-        component: Interface
       },
       {
         path: '/user',

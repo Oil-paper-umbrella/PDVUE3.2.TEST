@@ -134,7 +134,6 @@ export default {
      * @param indexid 指标
      */
     resuestBarChartData(data) {
-      console.log("bar", data);
       if (data.cityScore.length <= 0) {
         this.$message.error("请求数据为空");
       } else {
@@ -146,7 +145,6 @@ export default {
     },
     // 请求所有指标
     resuestAllIndexs(data) {
-      console.log("bar Allindex", data);
       this.allIndexs = new dataPublicFun(data).getAllIndexs(
         "bar",
         this.allTimes
@@ -154,7 +152,6 @@ export default {
     },
     // 请求所有季度
     resuestAllTimes(data) {
-      console.log("bar alltimes", data);
       this.allTimes = new dataPublicFun(data).getAllTimes();
     },
     /**
@@ -185,7 +182,6 @@ export default {
      * @param symbol 排序符  >、<、空
      */
     sort(symbol) {
-      // console.log(this.storeData)
       this.initCompont(this.storeData, symbol);
     },
     barCharts(data) {
@@ -217,7 +213,6 @@ export default {
       let clientHeight = document.documentElement
         ? document.documentElement.clientHeight
         : document.body.clientHeight;
-      console.log(clientHeight);
       this.clientHeight = clientHeight - 125 + "px";
     }
   },
@@ -285,6 +280,7 @@ export default {
     }
     .menu-name {
       font-size: 13px;
+      color: #60c1de;
     }
   }
   #bar-container {

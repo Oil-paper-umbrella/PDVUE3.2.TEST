@@ -16,6 +16,13 @@
         </el-collapse-item>
       </el-collapse>
     </el-col>
+    <el-dialog title="提示" :visible.sync="delDialog" width="30%" v-dialogDrag>
+      <span>确认要删除这封邮件么？</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="delDialog=false">取 消</el-button>
+        <el-button type="primary" @click="checkDel">确 定</el-button>
+      </span>
+    </el-dialog>
     <div v-if="showFlag">哎呀！你的收件箱空空如也！</div>
   </el-row>
 </div>
@@ -47,12 +54,19 @@ export default {
           name: 3
         },
       ],
-      showFlag: false
+      showFlag: false,
+      delDialog: false,
+      delIndex: null
     }
   },
   methods: {
     delMessage(index){
-      this.messageList.splice(index,1);
+      this.delDialog = true;
+      this.delIndex = index;
+    },
+    checkDel(){
+      this.messageList.splice(this.delIndex,1);
+      this.delDialog = false;
     }
   },
   watch: {

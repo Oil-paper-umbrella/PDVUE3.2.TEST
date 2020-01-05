@@ -1,6 +1,6 @@
 <template>
   <div>
-    聚类数据展示
+    <p>该功能尚未开发</p>
   </div>
 </template>
 <script>
