@@ -6,7 +6,6 @@ let getAllIndexs = function () {
   return new Promise((resolve, reject)=>{
     axios.get('/dianye/rest/JsonData/allIndexs')
         .then(data=>{
-          console.log(data.status)
           if(data.status===200){
             //处理状态
             resolve(data.data);
@@ -23,7 +22,6 @@ let getAllTimes = async function () {
   return new Promise((resolve, reject)=>{
     axios.get('/dianye/rest/JsonData/allTimes')
         .then(data=>{
-          console.log(data.status)
           if(data.status===200){
             //处理状态
             resolve(data.data);

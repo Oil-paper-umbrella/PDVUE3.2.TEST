@@ -11,24 +11,24 @@ const store = new Vuex.Store({
   state: {
       tabList: [], // 标签页 数组
       activeIndex: '/home/pie', // 默认选中标签页
-      chartList: [
-        {
-          route: "/home/pie",
-          name: "饼图"
-        },
-        {
-          route: "/home/bar",
-          name: "柱形图"
-        },
-        {
-          route: "/home/line",
-          name: "折线图"
-        },
-        {
-          route: "/home/radar",
-          name: "雷达图"
-        }
-      ]
+      // chartList: [
+      //   {
+      //     route: "/home/pie",
+      //     name: "饼图"
+      //   },
+      //   {
+      //     route: "/home/bar",
+      //     name: "柱形图"
+      //   },
+      //   {
+      //     route: "/home/line",
+      //     name: "折线图"
+      //   },
+      //   {
+      //     route: "/home/radar",
+      //     name: "雷达图"
+      //   }
+      // ]
   },
   mutations: {
     // 添加tabs

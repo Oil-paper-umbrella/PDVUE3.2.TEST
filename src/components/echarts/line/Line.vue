@@ -71,17 +71,23 @@ export default {
      * APi请求队列
      * */
     let getApi = [
-      getLineChart({ indexid: 2 }),
-      requestCommonData.getAllIndexs()
+      requestCommonData.getAllIndexs(),
+      this.getLineInfo(),
     ];
     /**
      * 响应数据处理队列
      * */
-    let resApi = [this.requestLineChartData, this.requestAllIndexs];
+    let resApi = [this.requestAllIndexs, this.requestLineChartData];
     //请求组件所需要数据
     this.reqGetInfo(getApi, resApi);
   },
   methods: {
+    async getLineInfo(){
+      let indexData = await requestCommonData.getAllIndexs();
+      this.checkedVal[0] = indexData.data.Allindexs[2].iid;
+      let lineData = await getLineChart({ indexid: indexData.data.Allindexs[0].iid})
+      return lineData;
+    },
     reqGetInfo(getApi, resApi) {
       /**
        * 异步请求数据

@@ -34,7 +34,7 @@ class DataBarFun {
     let cityScore = []; // 获取城市得分
     let score;
     for (let i = 0; i < 18; i++) {
-      if (cityArry[i].cityName == "平顶山") {
+      if (cityArry[i].cityName === "平顶山" || cityArry[i].cityName === "平顶山市") {
         score = 0;
       } else {
         score = cityArry[i].datas;
@@ -51,7 +51,7 @@ class DataBarFun {
     let cityScores = []; // 获取城市得分
     let score;
     for (let i = 0; i < 18; i++) {
-      if (cityArry[i].cityName == "平顶山") {
+      if (cityArry[i].cityName == "平顶山" || cityArry[i].cityName === "平顶山市") {
         score = cityArry[i].datas;
       } else {
         score = 0;

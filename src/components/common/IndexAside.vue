@@ -44,7 +44,7 @@ export default {
         { route: "/analysis", name: "分析结果展示", type: "child" }
       ],
       manageMenuList: [
-        { route: "/jurisdiction", name: "空间管理" },
+        { route: "/power", name: "权限管理" },
         { route: "/user", name: "用户管理" },
         { route: "/role", name: "角色管理" },
         { route: "/setindex", name: "指标设定" },

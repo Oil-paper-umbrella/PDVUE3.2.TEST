@@ -1,4 +1,5 @@
 import axios from '../control/filter/http.js'
+
 /**
  * @namespace getUser 获取用户及其角色
  * @author he
@@ -6,41 +7,41 @@ import axios from '../control/filter/http.js'
  */
 let getUser = async function () {
   return await axios
-  .post(
-    "http://211.69.26.108:8080/dianye/crudServlet?methodName=getJsonAllUserAndRole"
+  .get(
+    "/dianye/rest/CrudServlet/getJsonAllUserAndRole"
   )
 }
 
 /**
  * @namespace addUser 新增用户
- * @param {新增用户信息} body 
+ * @param {新增用户信息} body {"username":"zhao","password":"123456","phone":"456789","email":"456@","name":"yan"}
  */
 let addUser = async function (body) {
   return await axios
   .post(
-    "http://211.69.26.108:8080/dianye/crudServlet?methodName=addUser",body
+    "/dianye/rest/CrudServlet/setUserRoles",body
   )
 }
 
 /**
  * @namespace delUser 删除单个用户
- * @param {要删除的用户id} body 
+ * @param {要删除的用户id} body {"user_id":88}
  */
 let delUser = async function (body) {
   return await axios
   .post(
-    "http://211.69.26.108:8080/dianye/crudServlet?methodName=delUserById",body
+    "/dianye/rest/CrudServlet/delUserById",body
   )
 }
 
 /**
  * @namespace updateUser 修个单个用户信息
- * @param {修改后的用户信息} body 
+ * @param {修改后的用户信息} body {"id":88,"username":"a","password":"123456","phone":"456789","email":"456@","name":"yan"}
  */
 let updateUser = async function (body) {
   return await axios
   .post(
-    "http://211.69.26.108:8080/dianye/crudServlet?methodName=updateUser",body
+    "/dianye/rest/CrudServlet/updateUser",body
   )
 }
 
@@ -49,22 +50,43 @@ let updateUser = async function (body) {
  */
 let getRole = async function () {
   return await axios
-  .post(
-    "http://211.69.26.108:8080//dianye/crudServlet?methodName=getAllRoles"
+  .get(
+    "/dianye/rest/CrudServlet/getAllRoles"
   )
 }
 
 /**
  * @namespace addRolesToUser
- * @param {需要添加角色的用户id跟角色id} body 
+ * @param {需要添加角色的用户id跟角色id} body {"user_id":60,"roles":"[2,3]"}
  */
 let addRolesToUser = async function (body) {
   return await axios
   .post(
-    "http://211.69.26.108:8080/dianye/crudServlet?methodName=setUserRoles",body
+    "/dianye/rest/CrudServlet/setUserRoles",body
   )
 }
 
+/**
+ * @namespace updateRoleToUser
+ * @param {需要添加角色的用户id跟角色id} body {"user_id":60,"roles":"[3]"}
+ */
+let updateRoleToUser = async function (body) {
+  return await axios
+  .post(
+    "/dianye/rest/CrudServlet/updateUserRoles",body
+  )
+}
+
+/**
+ * @namespace findUserRoleInfo
+ * @param {需要添加角色的用户id跟角色id} body {"user_id":30}
+ */
+let findUserRoleInfo = async function (body) {
+  return await axios
+  .post(
+    "/dianye/rest/CrudServlet/getJSonOneUserAndRole?token",body
+  )
+}
 
 let requestUser = {
   getUser,
@@ -72,6 +94,8 @@ let requestUser = {
   delUser,
   updateUser,
   getRole,
-  addRolesToUser
+  addRolesToUser,
+  updateRoleToUser,
+  findUserRoleInfo
 }
 export default requestUser;

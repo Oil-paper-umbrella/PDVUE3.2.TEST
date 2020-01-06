@@ -37,7 +37,6 @@ class dataPieFun {
       }
     }
     if (status[type]) {
-      console.log(type);
       moduleData = status[type]();
     }
     if (moduleData.length <= 0)

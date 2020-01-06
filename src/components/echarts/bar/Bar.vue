@@ -68,9 +68,8 @@ export default {
       checkedVal: [8, 1] // 选中的 指标参数 和 季度参数
     };
   },
-  created() {},
   mounted() {
-    // 页面路由 如果为 whole 则切换字体样式
+    // 判断当前页面路由 如果为 whole 则切换字体样式
     let nowPath = this.$route.path;
     if (nowPath == "/whole/bar") {
       this.setClient();
@@ -81,22 +80,47 @@ export default {
      * APi请求队列
      * */
     let getApi = [
-      getBarChart({ timeid: 2, indexid: 2 }),
       requestCommonData.getAllTimes(),
-      requestCommonData.getAllIndexs()
+      requestCommonData.getAllIndexs(),
+      this.getBarInfo()
     ];
     /**
      * 响应数据处理队列
      * */
     let resApi = [
-      this.resuestBarChartData,
       this.resuestAllTimes,
-      this.resuestAllIndexs
+      this.resuestAllIndexs,
+      this.resuestBarChartData
     ];
     //请求组件所需要数据
     this.reqGetInfo(getApi, resApi);
   },
   methods: {
+    // 请求所有季度跟指标,默认初始渲染第一个季度跟第一个指标
+    async getBarInfo() {
+      let timeData = await requestCommonData.getAllTimes();
+      let indexData = await requestCommonData.getAllIndexs();
+      this.checkedVal = [
+        indexData.data.Allindexs[0].iid,
+        timeData.data.Alltime[2].tid
+      ];
+      let barData = await getBarChart({
+        timeid: timeData.data.Alltime[2].tid,
+        indexid: indexData.data.Allindexs[0].iid
+      });
+      return barData;
+    },
+    // 请求所有指标
+    resuestAllIndexs(data) {
+      this.allIndexs = new dataPublicFun(data).getAllIndexs(
+        "bar",
+        this.allTimes
+      );
+    },
+    // 请求所有季度
+    resuestAllTimes(data) {
+      this.allTimes = new dataPublicFun(data).getAllTimes();
+    },
     //设置legend样式
     setLegendStyle(flag) {
       if (flag) {
@@ -110,9 +134,7 @@ export default {
      * @param getApi APi请求队列
      * */
     reqGetInfo(getApi, resApi) {
-      /**
-       * 异步请求数据
-       * */
+      // 异步请求数据
       let result = Promise.all(getApi);
       result
         .then(data => {
@@ -130,8 +152,6 @@ export default {
     },
     /**
      * @namespace requestBarChartData 向后台发起请求
-     * @param timeid 季度
-     * @param indexid 指标
      */
     resuestBarChartData(data) {
       if (data.cityScore.length <= 0) {
@@ -142,17 +162,6 @@ export default {
         this.storeData = data;
         this.initCompont(data);
       }
-    },
-    // 请求所有指标
-    resuestAllIndexs(data) {
-      this.allIndexs = new dataPublicFun(data).getAllIndexs(
-        "bar",
-        this.allTimes
-      );
-    },
-    // 请求所有季度
-    resuestAllTimes(data) {
-      this.allTimes = new dataPublicFun(data).getAllTimes();
     },
     /**
      * @namespace init 用来初始化bar数据模板
@@ -174,7 +183,7 @@ export default {
       barObj.allCityScore = barFnc.allCityScores(sortCityArray); // 获取 18 个城市得分
       barObj.otherCityScore = barFnc.otherCityScores(sortCityArray); // 获取除 平顶山市 以外的 17个 城市得分
       barObj.pdCityScore = barFnc.getPDScore(sortCityArray); // 获取 平顶山市 的得分
-      barObj.overAvg = barFnc.overAverage(barObj.allCityScore); // 获取高于平均分的得分，若低于平均分，该城市得分为 0
+      barObj.overAvg = barFnc.overAverage(barObj.allCityScore); // 高于平均分的得分，若低于平均分，该城市得分为 0
       barObj.belowAvg = barFnc.belowAverage(barObj.allCityScore); // 获取低于平均分的得分，若高于平均分，该城市得分为 0
     },
     /**

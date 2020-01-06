@@ -13,11 +13,9 @@
         :key="index"
         :label="item.name"
         :name="item.route"
-      >
-        <!-- 多标签 路由容器 -->
-        <router-view :key="keys"></router-view>
-      </el-tab-pane>
+      ></el-tab-pane>
     </el-tabs>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -103,7 +101,6 @@ export default {
   box-sizing: border-box;
   .el-tabs {
     width: 100%;
-    height: 99%;
     .el-tabs__header {
       margin: 0;
     }

@@ -1,6 +1,5 @@
 <template>
     <div class="container" id="particles" :style="pageStyle">
-        hello
     </div>
 </template>
 <script>

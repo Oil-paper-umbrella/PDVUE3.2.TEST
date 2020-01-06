@@ -1,18 +1,11 @@
 <template>
-  <div class="pd-app-analysis">
+  <div class="analysis">
     <p>该功能尚未开发</p>
   </div>
 </template>
 <script>
 export default {
-  data() {
-      return{
-
-      }
-  },
-  methods: {
-    
-  }
+  name: "analysis"
 }
 </script>
 <style lang="scss" scoped>

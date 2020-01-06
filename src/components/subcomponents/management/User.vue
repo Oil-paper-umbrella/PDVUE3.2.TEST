@@ -100,35 +100,7 @@ import manageConfirm from "../../../utils/confirm.js";
 export default {
   data() {
     return {
-      userTable: [
-        // {
-        //   username: "zs",
-        //   password: "123",
-        //   phone: "150",
-        //   email: "254862",
-        //   name: "zas",
-        //   id: "1",
-        //   rolesString: ["超级管理员"]
-        // },
-        // {
-        //   username: "ls",
-        //   password: "183",
-        //   phone: "110",
-        //   email: "48ssc62",
-        //   name: "lsd",
-        //   id: "2",
-        //   rolesString: ["管理员"]
-        // },
-        // {
-        //   username: "ww",
-        //   password: "qwe",
-        //   phone: "134",
-        //   email: "sfvfg",
-        //   name: "wwa",
-        //   id: "3",
-        //   rolesString: ["管理员"]
-        // }
-      ],
+      userTable: [],
       roleTale: [],
       editMsg: {
         username: "",
@@ -139,17 +111,14 @@ export default {
         id: ""
       },
       roleMsg: {
-        username: "",
         userid: "",
-        roles: []
+        roles: [],
+        username: ""
       },
-      // indexs: 1,
       multipleSelection: "",
       updateDialog: false,
-      addDialog: false
-      // operationIndex: 0,
-      // operationName: "",
-      // delDialog: false,
+      addDialog: false,
+      upadateFlag: false
     };
   },
   created() {
@@ -195,8 +164,12 @@ export default {
      */
     getAllUser() {
       requestUser.getUser().then(data => {
+        if (data.data.message != "Success") {
+          this.$message.error("查询失败！刷新试试");
+        }
         this.userTable = data.data.AllUser;
       });
+      
     },
     /**
      * @namespace getAllRole 获取所有角色
@@ -212,7 +185,7 @@ export default {
      */
     addUser(userInfo) {
       requestUser.addUser(userInfo).then(data => {
-        this.requestMsg(data.data.msg, "用户添加成功!");
+        this.requestMsg(data.data.message, "Success");
         this.initEditMsg();
       });
     },
@@ -221,24 +194,53 @@ export default {
      * @param {用户id} id
      */
     requestDelUser(id) {
-      requestUser.delUser({ user_id: id }).then(data => {
-        this.requestMsg(data.data.msg, "删除成功");
+      requestUser.delUser({ userid: id }).then(data => {
+        this.requestMsg(data.data.message, "Success");
       });
     },
     /**
-     * @namespace
-     * @param {userInfo} 修改后的用户信息
+     * @namespace updateUser 更新用户信息
+     * @param {userInfo} 用户新信息
      */
     updateUser(userInfo) {
+      console.log(userInfo);
       requestUser.updateUser(userInfo).then(data => {
-        this.requestMsg(data.data.msg, "修改用户成功!");
+        console.log("update");
+        console.log(data);
+        this.requestMsg(data.data.message, "Success");
         this.initEditMsg();
       });
     },
+    /**
+     * @namespace requestAddRole 给用户设置角色
+     * @param {userRole} 角色信息
+     */
     requestAddRole(userRole) {
-      requestUser.addRolesToUser(userRole).then(data => {
-        this.requestMsg(data.data, "用户设置权限成功!");
+      requestUser.addRolesToUser({"user_id": userRole.userid,"roles": userRole.roles}).then(data => {
+        this.requestMsg(data.data.message, "Success");
         this.initRoleMsg();
+      });
+    },
+    /**
+     * @namespace requestUpdateRole 更新用户角色
+     * @param {userRole} 新角色信息
+     */
+    requestUpdateRole(userRole) {
+      requestUser.updateRoleToUser(userRole).then(data => {
+        this.requestMsg(data.data.message, "Success");
+        this.initRoleMsg();
+      });
+    },
+    /**
+     * @namespace requestUserOfRole 获取用户对应角色
+     * @param {userid} 用户id
+     */
+    requestUserOfRole(userid) {
+      requestUser.findUserRoleInfo({ userid: userid }).then(data => {
+        if (data.data.oneOneAndUserRoles != undefined) {
+          this.upadateFlag = true;
+          this.roleMsg.roles = data.data.oneOneAndUserRoles.roleslist;
+        }
       });
     },
 
@@ -256,16 +258,22 @@ export default {
      * @param {scope} 当前要添加角色的用户信息
      */
     addRole(scope) {
+      console.log("add");
+      console.log(scope);
       this.roleMsg.username = scope.row.username;
       this.roleMsg.userid = scope.row.id;
+      this.requestUserOfRole(scope.row.id);
       this.addDialog = true;
     },
     /**
-     * @namespace checkRole 确认给该用户添加角色
+     * @namespace checkRole 确认给该用户添加/更改角色
      */
     checkRole() {
-      console.log(this.roleMsg);
-      this.requestAddRole(this.roleMsg);
+      if (this.upadateFlag) {
+        this.requestUpdateRole(this.roleMsg);
+      } else {
+        this.requestAddRole(this.roleMsg);
+      }
       this.editMsg.username = "";
       this.addDialog = false;
     },
@@ -321,7 +329,6 @@ export default {
      * @namespace batchDel 批量删除
      */
     batchDel() {
-      console.log(this.$refs.multipleTable);
       manageConfirm
         .confirm(this, "此操作将永久删除这些用户, 是否继续?")
         .then(() => {
@@ -331,31 +338,22 @@ export default {
           this.$message("已取消删除");
         });
     },
-    handleSelectionChange(val){
-      console.log("select change");
-      console.log(val);
+    /**
+     * @namespace handleSelectionChange 多选/全选
+     * @param {val} 选中的id
+     */
+    handleSelectionChange(val) {
       let userId = [];
-      for(let i=0; i<val.length; i++){
-        console.log(i);
-        console.log(val[i].id);
+      for (let i = 0; i < val.length; i++) {
         userId.push(val[i].id);
       }
-      console.log("final");
-      console.log(userId);
     }
-  },
-  // watch: {
-  //   indexs: {
-  //     handler: function(val) {
-  //       console.log(val);
-  //       this.getAllUser();
-  //     }
-  //   }
-  // }
+  }
 };
 </script>
 <style lang="scss">
 .user {
+  overflow: hidden;
   .user-process {
     margin-bottom: 10px;
   }

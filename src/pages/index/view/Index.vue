@@ -134,7 +134,7 @@ export default {
   }
   .el-table td,
   .el-table th {
-    text-align: center !important;
+    text-align: center;
   }
   .el-table thead {
     color: white !important;
@@ -179,6 +179,20 @@ export default {
   .el-table,
   .el-table__expanded-cell {
     background-color: #111739 !important;
+  }
+  .el-table__body-wrapper::-webkit-scrollbar {
+    width: 4px;
+  }
+  .el-table__body-wrapper::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  .el-table__body-wrapper::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0.1);
   }
 }
 </style>

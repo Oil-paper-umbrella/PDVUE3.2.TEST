@@ -104,7 +104,6 @@ export default {
         ? document.documentElement.clientHeight
         : document.body.clientHeight;
       this.pageStyle.height = clientHeight - 125 + "px";
-      console.log(this.pageStyle.height);
     }
   },
   mounted() {

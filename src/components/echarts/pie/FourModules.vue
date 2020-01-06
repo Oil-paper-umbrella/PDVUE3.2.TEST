@@ -32,7 +32,7 @@ export default {
         legendRight: "13%"
       },
       allTimes: [],
-      checkedVal: 1
+      checkedVal: []
     };
   },
   mounted() {
@@ -43,20 +43,31 @@ export default {
       this.flag = true;
     }
     /**
-     * APi请求队列
+     * 异步请求APi请求队列
      * */
     let getApi = [
-      getFourModual({ timeid: 2 }),
-      requestCommonData.getAllTimes()
+      requestCommonData.getAllTimes(),
+      this.getFourModualINfo()
     ];
     /**
      * 响应数据处理队列
      * */
-    let resApi = [this.requestFourModualData, this.requestAllTimes];
+    let resApi = [this.requestAllTimes,this.requestFourModualData];
     //请求组件所需要数据
     this.reqGetInfo(getApi, resApi);
+    // let that = this;
+    //同步请求
+    // this.getFourModualINfo().then(data=>{
+    //   that.requestFourModualData(data.data)
+    // });
+    
   },
   methods: {
+    async getFourModualINfo(){
+      let timeData = await requestCommonData.getAllTimes();
+      let forMoudelData = await getFourModual({timeid:timeData.data.Alltime[0].tid})
+      return forMoudelData;
+    },
     reqGetInfo(getApi, resApi) {
       /**
        * 异步请求数据
@@ -64,6 +75,7 @@ export default {
       let result = Promise.all(getApi);
       result
         .then(data => {
+          resApi[0](data[0].data)
           for (let i = 0; i < data.length; i++) {
             if (data[i].code === 0) {
               resApi[i](data[i].data);
@@ -81,12 +93,13 @@ export default {
      * @param timeid 季度
      */
     requestFourModualData(data) {
-      this.setLegendStyle(this.flag);
-      this.fourModulesPieCharts(data);
+       this.setLegendStyle(this.flag);
+       this.fourModulesPieCharts(data);
     },
     // 请求所有季度
     requestAllTimes(data) {
       this.allTimes = new dataPublicFun(data).getAllTimes();
+      this.checkedVal[0] = this.allTimes[0].value;
     },
     setLegendStyle(flag) {
       // 设置 legend 样式参数
@@ -137,9 +150,9 @@ export default {
   watch: {
     checkedVal: {
       handler: function(val) {
-        let getApi = [getFourModual({ timeid: val[0] })];
-        let resApi = [this.requestFourModualData];
-        this.reqGetInfo(getApi, resApi);
+         let getApi = [getFourModual({ timeid: val[0] })];
+         let resApi = [this.requestFourModualData];
+         this.reqGetInfo(getApi, resApi);
       }
     }
   }

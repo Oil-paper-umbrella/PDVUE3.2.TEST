@@ -12,18 +12,19 @@
           <i class="el-icon-search el-input__icon" slot="suffix" @click="searchContent"></i>
         </el-input>
       </el-col>
-      
+
       <el-col :span="2.5">
         <!-- 信息图标 -->
         <a href="/message">
           <el-badge is-dot class="item">
-          <i class="el-icon-alixiaoxi" style="font-size: 20px;"></i>
-        </el-badge>
+            <i class="el-icon-alixiaoxi" style="font-size: 20px;"></i>
+          </el-badge>
         </a>
         <!-- 个人中心，包含下拉框内容 -->
-        <el-dropdown >
+        <el-dropdown>
           <span class="el-dropdown-link">
-            <i class="el-icon-aliyonghu"></i> <span class="nav-user">{{userName}}</span>
+            <i class="el-icon-aliyonghu"></i>
+            <span class="nav-user">{{userName}}</span>
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">

@@ -51,7 +51,10 @@ import {
   TableColumn,
   Option,
   OptionGroup,
-  Pagination
+  Pagination,
+  Card,
+  Timeline,
+  TimelineItem,
 } from 'element-ui';
 
 Vue.use(Dialog);
@@ -92,56 +95,16 @@ Vue.use(CollapseItem);
 Vue.use(Option);
 Vue.use(OptionGroup);
 Vue.use(Pagination);
+Vue.use(Card);
+Vue.use(Timeline);
+Vue.use(TimelineItem);
 Vue.prototype.$msgbox = MessageBox;
 Vue.prototype.$alert = MessageBox.alert;
 Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$prompt = MessageBox.prompt;
 Vue.prototype.$notify = Notification;
 Vue.prototype.$message = Message;
-let bugs ="/*\n" +
-    "        quu..__\n" +
-    "         $$$b  `---.__\n" +
-    "          \"$$b        `--.                          ___.---uuudP\n" +
-    "           `$$b           `.__.------.__     __.---'      $$$$\"              .\n" +
-    "             \"$b          -'            `-.-'            $$$\"              .'|\n" +
-    "               \".                                       d$\"             _.'  |\n" +
-    "                 `.   /                              ...\"             .'     |\n" +
-    "                   `./                           ..::-'            _.'       |\n" +
-    "                    /                         .:::-'            .-'         .'\n" +
-    "                   :                          ::''\\          _.'            |\n" +
-    "                  .' .-.             .-.           `.      .'               |\n" +
-    "                  : /'$$|           .@\"$\\           `.   .'              _.-'\n" +
-    "                 .'|$u$$|          |$$,$$|           |  <            _.-'\n" +
-    "                 | `:$$:'          :$$$$$:           `.  `.       .-'\n" +
-    "                 :                  `\"--'             |    `-.     \\\n" +
-    "                :##.       ==             .###.       `.      `.    `\\\n" +
-    "                |##:                      :###:        |        >     >\n" +
-    "                |#'     `..'`..'          `###'        x:      /     /\n" +
-    "                 \\                                   xXX|     /    ./\n" +
-    "                  \\                                xXXX'|    /   ./\n" +
-    "                  /`-.                                  `.  /   /\n" +
-    "                 :    `-  ...........,                   | /  .'\n" +
-    "                 |         ``:::::::'       .            |<    `.\n" +
-    "                 |             ```          |           x| \\ `.:``.\n" +
-    "                 |                         .'    /'   xXX|  `:`M`M':.\n" +
-    "                 |    |                    ;    /:' xXXX'|  -'MMMMM:'\n" +
-    "                 `.  .'                   :    /:'       |-'MMMM.-'\n" +
-    "                  |  |                   .'   /'        .'MMM.-'\n" +
-    "                  `'`'                   :  ,'          |MMM<\n" +
-    "                    |                     `'            |tbap\\\n" +
-    "                     \\                                  :MM.-'\n" +
-    "                      \\                 |              .''\n" +
-    "                       \\.               `.            /\n" +
-    "                        /     .:::::::.. :           /\n" +
-    "                       |     .:::::::::::`.         /\n" +
-    "                       |   .:::------------\\       /\n" +
-    "                      /   .''               >::'  /\n" +
-    "                      `',:                 :    .'\n" +
-    "                                           `:.:'\n" +
-    "\n" +
-    "         \n" +
-    "        */";
-console.log(bugs)
+
 // import moment from 'moment'
 import moment from 'moment'
 Vue.filter('filterDate', function(dataStr, pattern="YYYY-MM-DD HH:mm:ss"){
