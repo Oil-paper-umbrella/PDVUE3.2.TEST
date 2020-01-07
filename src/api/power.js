@@ -7,7 +7,7 @@ import axios from '../control/filter/http.js'
 let getPower = async function () {
   return await axios
   .get(
-    "/dianye/rest/CrudServlet/getAllAuthoritys"
+    "/dianyeAutho/rest/CrudServlet/getAllAuthoritys"
   )
 }
 
@@ -18,7 +18,7 @@ let getPower = async function () {
 let addPower = async function (body) {
   return await axios
   .post(
-    "/dianye/rest/CrudServlet/addAuthority",body
+    "/dianyeAutho/rest/CrudServlet/addAuthority",body
   )
 }
 
@@ -29,7 +29,7 @@ let addPower = async function (body) {
 let delPower = async function (body) {
   return await axios
   .post(
-    "/dianye/rest/CrudServlet/delAuthorityById",body
+    "/dianyeAutho/rest/CrudServlet/delAuthorityById",body
   )
 }
 
@@ -40,7 +40,7 @@ let delPower = async function (body) {
 let updatePower = async function (body) {
   return await axios
   .post(
-    "/dianye/rest/CrudServlet/updateAuthority",body
+    "/dianyeAutho/rest/CrudServlet/updateAuthority",body
   )
 }
 

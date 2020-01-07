@@ -203,6 +203,7 @@ export default {
      * @param {userInfo} 用户新信息
      */
     updateUser(userInfo) {
+      console.log("object");
       console.log(userInfo);
       requestUser.updateUser(userInfo).then(data => {
         console.log("update");

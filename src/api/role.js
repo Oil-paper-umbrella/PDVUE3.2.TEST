@@ -8,7 +8,7 @@ import axios from '../control/filter/http.js'
 let getAllRole = async function () {
   return await axios
   .get(
-    "/dianye/rest/CrudServlet/getJsonAllRoleAndAut"
+    "/dianyeAutho/rest/CrudServlet/getJsonAllRoleAndAut"
   )
 }
 
@@ -18,7 +18,7 @@ let getAllRole = async function () {
 let getAllPower = async function () {
   return await axios
   .get(
-    "/dianye/rest/CrudServlet/getAllAuthoritys"
+    "/dianyeAutho/rest/CrudServlet/getAllAuthoritys"
   )
 }
 
@@ -29,7 +29,7 @@ let getAllPower = async function () {
 let addRole = async function (body) {
   return await axios
   .post(
-    "/dianye/rest/CrudServlet/addRole",body
+    "/dianyeAutho/rest/CrudServlet/addRole",body
   )
 }
 
@@ -40,7 +40,7 @@ let addRole = async function (body) {
 let updateRole = async function (body) {
   return await axios
   .post(
-    "/dianye/rest/CrudServlet/updateRole",body
+    "/dianyeAutho/rest/CrudServlet/updateRole",body
   )
 }
 
@@ -51,7 +51,7 @@ let updateRole = async function (body) {
 let getRoleOfPower = async function (body) {
   return await axios
   .post(
-    "/dianye/rest/CrudServlet/getOneRoleAndAut",body
+    "/dianyeAutho/rest/CrudServlet/getOneRoleAndAut",body
   )
 }
 
@@ -62,7 +62,7 @@ let getRoleOfPower = async function (body) {
 let setPower = async function (body) {
   return await axios
   .post(
-    "/dianye/rest/CrudServlet/setRoleAuthos",body
+    "/dianyeAutho/rest/CrudServlet/setRoleAuthos",body
   )
 }
 
@@ -73,7 +73,7 @@ let setPower = async function (body) {
 let updateRoleOfPrower = async function (body) {
   return await axios
   .post(
-    "/dianye/rest/CrudServlet/updateRoleAuthos",body
+    "/dianyeAutho/rest/CrudServlet/updateRoleAuthos",body
   )
 }
 
@@ -84,7 +84,7 @@ let updateRoleOfPrower = async function (body) {
 let delRole = async function (body) {
   return await axios
   .post(
-    "/dianye/rest/CrudServlet/delRoleById",body
+    "/dianyeAutho/rest/CrudServlet/delRoleById",body
   )
 }
 

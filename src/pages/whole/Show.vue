@@ -126,6 +126,20 @@ a:active {
 * {
   box-sizing: border-box;
 }
+*::-webkit-scrollbar {
+  width: 4px;
+}
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+}
 #show {
   background: #111739;
   .el-icon-aliquanping1 {

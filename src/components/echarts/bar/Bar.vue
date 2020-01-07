@@ -101,12 +101,12 @@ export default {
       let timeData = await requestCommonData.getAllTimes();
       let indexData = await requestCommonData.getAllIndexs();
       this.checkedVal = [
-        indexData.data.Allindexs[0].iid,
-        timeData.data.Alltime[2].tid
+        indexData.data.Allindexs[3].iid,
+        timeData.data.Alltime[0].tid
       ];
       let barData = await getBarChart({
-        timeid: timeData.data.Alltime[2].tid,
-        indexid: indexData.data.Allindexs[0].iid
+        timeid: timeData.data.Alltime[0].tid,
+        indexid: indexData.data.Allindexs[3].iid
       });
       return barData;
     },

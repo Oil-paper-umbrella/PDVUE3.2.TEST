@@ -84,8 +84,8 @@ export default {
   methods: {
     async getLineInfo(){
       let indexData = await requestCommonData.getAllIndexs();
-      this.checkedVal[0] = indexData.data.Allindexs[2].iid;
-      let lineData = await getLineChart({ indexid: indexData.data.Allindexs[0].iid})
+      this.checkedVal[0] = indexData.data.Allindexs[1].iid;
+      let lineData = await getLineChart({ indexid: indexData.data.Allindexs[1].iid})
       return lineData;
     },
     reqGetInfo(getApi, resApi) {
@@ -108,12 +108,8 @@ export default {
         });
     },
     requestLineChartData(data) {
-      if (data.allTimes.length <= 1 && data.allTimes[0] == "期初值") {
-        this.$message.error("该指标只有期初值");
-      } else {
-        this.setLineStyle(this.flag);
-        this.lineCharts(data);
-      }
+      this.setLineStyle(this.flag);
+      this.lineCharts(data);
     },
     requestAllIndexs(data) {
       this.allIndexs = new dataPublicFun(data).getAllIndexs("line");

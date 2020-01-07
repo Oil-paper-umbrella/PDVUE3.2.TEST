@@ -1,4 +1,4 @@
-const initialValue = "期初值"
+// const initialValue = "期初值"
 
 class dataLineFun {
   constructor(data) {
@@ -13,9 +13,9 @@ class dataLineFun {
     let indexAllTimes = this.data.allTimes;
     let newIndexTimes = [];
     for (let i = 0; i < indexAllTimes.length; i++) {
-      if (indexAllTimes[i] != initialValue) {
+      // if (indexAllTimes[i] != initialValue) {
         newIndexTimes.push(indexAllTimes[i]);
-      }
+      // }
     }
     return newIndexTimes;
   }
