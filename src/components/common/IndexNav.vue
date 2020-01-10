@@ -17,13 +17,13 @@
         <!-- 信息图标 -->
         <a href="/message">
           <el-badge is-dot class="item">
-            <i class="el-icon-alixiaoxi" style="font-size: 20px;"></i>
+            <i class="el-icon-message" style="font-size: 20px;"></i>
           </el-badge>
         </a>
         <!-- 个人中心，包含下拉框内容 -->
         <el-dropdown>
           <span class="el-dropdown-link">
-            <i class="el-icon-aliyonghu"></i>
+            <i class="el-icon-user" style="font-size: 1.5em"></i>
             <span class="nav-user">{{userName}}</span>
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
@@ -82,10 +82,12 @@ export default {
 <style lang="scss">
 .index-nav {
   width: 100%;
-  .el-icon-alixiaoxi {
+  .el-icon-message {
+    position: relative;
+    top: -2px;
     color: #fff;
   }
-  .el-icon-alixiaoxi:hover {
+  .el-icon-message:hover {
     color: #409eff;
   }
   .nav-row {

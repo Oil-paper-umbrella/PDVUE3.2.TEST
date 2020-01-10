@@ -82,12 +82,12 @@ export default {
         },
         {
           name: "用户管理",
-          icon: "el-icon-aliyonghu",
+          icon: "el-icon-user",
           target: "/user"
         },
         {
           name: "角色管理",
-          icon: "el-icon-alishouquan",
+          icon: "el-icon-s-claim",
           target: "/role"
         },
         {

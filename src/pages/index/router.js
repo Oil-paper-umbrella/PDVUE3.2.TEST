@@ -47,7 +47,7 @@ let routes = [
       },
       {
         path: '/power',
-        name: '空间管理',
+        name: '权限管理',
         component: Power
       },
       {

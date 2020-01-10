@@ -5,7 +5,7 @@
       <div class="border-container show-view">
         <p class="open">
           <router-link to="/whole/pie" tag="div">
-            <i class="el-icon-aliquanping1"></i>
+            <i class="el-icon-full-screen"></i>
           </router-link>
         </p>
         <Pie></Pie>
@@ -24,7 +24,7 @@
       <div class="border-container show-view">
         <p class="open">
           <router-link to="/whole/bar" tag="div">
-            <i class="el-icon-aliquanping1"></i>
+            <i class="el-icon-full-screen"></i>
           </router-link>
         </p>
         <Bar></Bar>
@@ -36,7 +36,7 @@
       <div class="border-container show-view">
         <p class="open">
           <router-link to="/whole/radar" tag="div">
-            <i class="el-icon-aliquanping1"></i>
+            <i class="el-icon-full-screen"></i>
           </router-link>
         </p>
         <Radar></Radar>
@@ -48,7 +48,7 @@
       <div class="border-container show-view">
         <p class="open">
           <router-link to="/whole/line" tag="div">
-            <i class="el-icon-aliquanping1"></i>
+            <i class="el-icon-full-screen"></i>
           </router-link>
         </p>
         <Pline></Pline>
@@ -142,7 +142,7 @@ a:active {
 }
 #show {
   background: #111739;
-  .el-icon-aliquanping1 {
+  .el-icon-full-screen {
     // 全屏 icon 样式
     font-size: 1.5rem;
     position: absolute;

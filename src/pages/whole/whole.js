@@ -4,7 +4,6 @@ import store from '../../store'
 import axios from '../../control/filter/http.js'
 import router from "./router";
 import VueAxios from 'vue-axios'
-import '../../assets/css/iconfont.css'
 Vue.use(VueAxios,axios);
 Vue.config.productionTip = false
 

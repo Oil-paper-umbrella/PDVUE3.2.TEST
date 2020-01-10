@@ -14,7 +14,7 @@
           <el-collapse-item v-for="(item, i) in messageList" :title="item.title" :name="i" :key="i">
             <template slot="title">
               {{ item.title }}
-              <i class="el-icon-alishanchu" style="float: right" @click="delMessage(i)"></i>
+              <i class="el-icon-delete" style="float: right" @click="delMessage(i)"></i>
             </template>
             {{ item.content }}
           </el-collapse-item>
@@ -119,7 +119,7 @@ export default {
   }
 }
 
-.el-icon-alishanchu {
+.el-icon-delete {
   position: absolute;
   top: 1;
   right: 25px;

@@ -25,7 +25,7 @@
         <el-table-column prop="authoString" label="角色对应权限名" show-overflow-tooltip></el-table-column>
         <el-table-column label="操作" width="120">
           <template slot-scope="scope">
-            <i class="el-icon-alishouquan icon-control" @click="addPower(scope)"></i>
+            <i class="el-icon-edit-outline icon-control" @click="addPower(scope)"></i>
             <i class="el-icon-edit icon-control" @click="editRole(scope)"></i>
             <i class="el-icon-delete icon-control" @click="requestDelOneRole(scope.row.roleId)"></i>
           </template>
