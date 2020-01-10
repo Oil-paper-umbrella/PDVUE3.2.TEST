@@ -18,8 +18,13 @@ class optionPieFun {
       trigger: 'item',
       textStyle: new optionPublicFun().textStyle(weight, size),
       formatter: (params) => {
+        let allModulesScore = new dataPieFun(this.data).indexAllScore(type);
+        let allSum = 0;
+        for(let i=0;i<allModulesScore.length;i++){
+          allSum += allModulesScore[i];
+        }
         let indexScore = new dataPieFun(this.data).indexAllScore(type)[params.dataIndex];
-        return params.name + "<br />得分：" + params.value + "分" + "<br/>满分：" + indexScore + "分" + "<br>占比：" + params.percent + "%"
+        return params.name + "<br />得分：" + params.value + "分" + "<br/>满分：" + indexScore + "分" + "<br>预期占比：" + (indexScore/allSum)*100 + "%" + "<br>实际占比：" + params.percent + "%" ;
       }
     }
     return toolTip;

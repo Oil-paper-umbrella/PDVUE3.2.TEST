@@ -32,12 +32,12 @@ const selectedCity = {
   驻马店市: false
 };
 const citysColor = [
-  "#0084C8",
-  "#27C2C1",
-  "#9CCB63",
-  "#D8514B",
-  "#61A0A8",
-  "#F6731B",
+  "#76DA91",
+  "#FCD85A",
+  "#60C1DE",
+  "#C23531",
+  "#FBEFEF",
+  "#FFFF00",
   "#FFA597",
   "#84E4DD",
   "#FCD85A",
@@ -47,9 +47,11 @@ const citysColor = [
   "#9CCB63",
   "#D8514B",
   "#0084C8",
-  "#F6731B"
+  "#F6731B",
+  "",
+  ""
 ];
-const areaColor = ["#4E5575", "#3F4666"];
+// const areaColor = ["rgba(78,85,117,0.2)", "rgba(63,70,102,0.5)"];
 const defaultCityName = "平顶山市";
 export default {
   name: "echarts",
@@ -126,19 +128,32 @@ export default {
           name: {
             fontSize: this.radarLegendStyle.size
           },
+          axisLabel: {
+            show: true,
+            showMaxLabel: true, //不显示最大值，即外圈不显示数字30
+            showMinLabel: true //显示最小数字，即中心点显示0
+          },
           indicator: [
             { name: "电网发展质量", max: 200, color: "#fff" },
-            { name: "公司管理效率", max: 200, color: "#D8514B" },
-            { name: "创新创效能力", max: 200, color: "#54DCF2" },
-            { name: "基础保障力", max: 200, color: "#FCD85A" }
+            { name: "公司管理效率", max: 200, color: "#D8514B", axisLabel:{show:false} },
+            { name: "创新创效能力", max: 200, color: "#54DCF2", axisLabel:{show:false} },
+            { name: "基础保障力", max: 200, color: "#FCD85A", axisLabel:{show:false} }
           ],
           center: ["41%", "50%"],
           radius: opRadarFnc.radarRadius(this.flag),
           color: [],
           label: opRadarFnc.radarLabel(this.radarLegendStyle.size),
+          splitLine: {
+            lineStyle: {
+              color: "rgba(255,255,255,0.4)"
+            }
+          },
           splitArea: {
-            areaStyle: {
-              color: areaColor
+            show: false
+          },
+          axisLine: {
+            lineStyle: {
+              color: "rgba(255,255,255,0.4)"
             }
           }
         },
@@ -147,10 +162,10 @@ export default {
             type: "radar",
             lineStyle: {
               normal: {
-                width: this.radarLegendStyle.width
+                width: 3
               }
             },
-            symbolSize: 12,
+            symbolSize: 8,
             data: this.datas
           }
         ]
