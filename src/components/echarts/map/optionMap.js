@@ -3,7 +3,7 @@ class optionMapFun {
   /**
    * @namespace mapTooltip
    * @author he
-   * create in 19-12-12
+   * create in 2020-1-11
    */
   mapTooltip() {
     let tooltip = {
@@ -16,12 +16,12 @@ class optionMapFun {
     return tooltip;
   }
   /**
-   * @namespace mapSeries
-   * @param {各地市数据} datas 
+   * @namespace mapBarSeries
+   * @param {地图各地市数据} datas 
+   * @param {排名各地市数据} barData 
    */
-  mapBarSeries(datas,barData) {
-    let series = [
-      {
+  mapBarSeries(datas, barData) {
+    let series = [{
         type: "map",
         // top: '10%',
         mapType: "河南",
@@ -51,12 +51,10 @@ class optionMapFun {
         barGap: 0,
         itemStyle: {
           normal: {
-            color: function(params) {
+            color: function (params) {
               // build a color map as your need.
-              var colorList = [
-                {
-                  colorStops: [
-                    {
+              var colorList = [{
+                  colorStops: [{
                       offset: 0,
                       color: "#FFD119" // 0% 处的颜色
                     },
@@ -67,8 +65,7 @@ class optionMapFun {
                   ]
                 },
                 {
-                  colorStops: [
-                    {
+                  colorStops: [{
                       offset: 0,
                       color: "#00C0FA" // 0% 处的颜色
                     },
@@ -93,7 +90,9 @@ class optionMapFun {
     ]
     return series;
   }
-
+  /**
+   * @namespace mapTitle 
+   */
   mapTitle() {
     let title = [{
       show: true,
@@ -107,8 +106,10 @@ class optionMapFun {
     }]
     return title
   }
-
-  mapBarGrid(){
+ /**
+  * @namespace mapBarGrid 地图中柱状图
+  */
+  mapBarGrid() {
     let grid = {
       right: 0,
       top: "85",
@@ -116,8 +117,11 @@ class optionMapFun {
     }
     return grid;
   }
-
-  mapBarYaxis(yData){
+  /**
+   * @namespace mapBarYaxis 
+   * @param {yData} 各地市排名后Y轴值
+   */
+  mapBarYaxis(yData) {
     let yAxis = {
       type: "category",
       inverse: true,
@@ -160,31 +164,31 @@ class optionMapFun {
             borderRadius: 2
           }
         },
-        formatter: function(params) {
+        formatter: function (params) {
           if (parseInt(params.slice(0, 2)) < 3) {
             return [
               "{a|" +
-                (parseInt(params.slice(0, 2)) + 1) +
-                "}" +
-                "  " +
-                params.slice(1)
+              (parseInt(params.slice(0, 2)) + 1) +
+              "}" +
+              "  " +
+              params.slice(1)
             ].join("\n");
           } else {
             if (parseInt(params) + 1 > 10) {
               return [
                 "{b|" +
-                  (parseInt(params.slice(0, 2)) + 1) +
-                  "}" +
-                  "  " +
-                  params.slice(2)
+                (parseInt(params.slice(0, 2)) + 1) +
+                "}" +
+                "  " +
+                params.slice(2)
               ].join("\n");
-            }else {
+            } else {
               return [
                 "{b|" +
-                  (parseInt(params.slice(0, 2)) + 1) +
-                  "}" +
-                  "  " +
-                  params.slice(1)
+                (parseInt(params.slice(0, 2)) + 1) +
+                "}" +
+                "  " +
+                params.slice(1)
               ].join("\n");
             }
           }
