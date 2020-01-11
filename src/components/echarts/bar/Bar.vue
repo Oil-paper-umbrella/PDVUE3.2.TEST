@@ -26,7 +26,7 @@
     <!-- 指标级联框 -->
     <div class="index-menu">
       <span class="menu-name">指标：</span>
-      <el-cascader v-model="checkedVal" :options="allIndexs" size="small"></el-cascader>
+      <el-cascader v-model="checkedVal" :options="indicator" size="small" filterable></el-cascader>
     </div>
     <!-- 渲染柱形图容器 -->
     <div id="bar-container"></div>
@@ -63,9 +63,76 @@ export default {
       },
       storeData: null,
       flag: false, // 用于切换 字体样式
+      indicator: [
+        {
+          value: 1,
+          label: "指标",
+          children: null
+        },
+        {
+          value: 2,
+          label: "部门",
+          children: [
+            {
+              value: "1",
+              label: "安监部",
+              children: [
+                {
+                  value: "13",
+                  label: "期初值"
+                },
+                {
+                  value: "14",
+                  label: "1803"
+                },
+                {
+                  value: "15",
+                  label: "1903"
+                }
+              ]
+            },
+            {
+              value: "2",
+              label: "设备部",
+              children: [
+                {
+                  value: "13",
+                  label: "期初值"
+                },
+                {
+                  value: "14",
+                  label: "1803"
+                },
+                {
+                  value: "15",
+                  label: "1903"
+                }
+              ]
+            },
+            {
+              value: "3",
+              label: "国防部",
+              children: [
+                {
+                  value: "13",
+                  label: "期初值"
+                },
+                {
+                  value: "14",
+                  label: "1803"
+                },
+                {
+                  value: "15",
+                  label: "1903"
+                }
+              ]
+            }
+          ]
+        }
+      ],
       allIndexs: [],
       allTimes: [],
-      checkedVal: [8, 1] // 选中的 指标参数 和 季度参数
+      checkedVal: [] // 选中的 指标参数 和 季度参数
     };
   },
   mounted() {
@@ -101,6 +168,7 @@ export default {
       let timeData = await requestCommonData.getAllTimes();
       let indexData = await requestCommonData.getAllIndexs();
       this.checkedVal = [
+        1,
         indexData.data.Allindexs[3].iid,
         timeData.data.Alltime[0].tid
       ];
@@ -116,6 +184,7 @@ export default {
         "bar",
         this.allTimes
       );
+      this.indicator[0].children = this.allIndexs;
     },
     // 请求所有季度
     resuestAllTimes(data) {
@@ -235,7 +304,7 @@ export default {
     },
     checkedVal: {
       handler: function(val) {
-        let getApi = [getBarChart({ timeid: val[1], indexid: val[0] })];
+        let getApi = [getBarChart({ timeid: val[2], indexid: val[1] })];
         let resApi = [this.resuestBarChartData];
         this.reqGetInfo(getApi, resApi);
       }

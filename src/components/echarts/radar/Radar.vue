@@ -32,26 +32,25 @@ const selectedCity = {
   驻马店市: false
 };
 const citysColor = [
-  "#76DA91",
-  "#FCD85A",
-  "#60C1DE",
-  "#C23531",
-  "#FBEFEF",
-  "#FFFF00",
-  "#FFA597",
-  "#84E4DD",
-  "#FCD85A",
-  "#C39705",
-  "#72B332",
-  "#27C2C1",
-  "#9CCB63",
-  "#D8514B",
-  "#0084C8",
-  "#F6731B",
-  "",
-  ""
+  "#600000",
+  "#D9006C",
+  "#AE00AE",
+  "#FF0000",
+  "#6F00D2",
+  "#FF60AF",
+  "#B15BFF",
+  "#0000C6",
+  "#009393",
+  "#01B468",
+  "#2894FF",
+  "#00FFFF",
+  "#F0FFF0",
+  "#79FF79",
+  "#424200",
+  "#844200",
+  "#FFFF37",
+  "#FF8F59"
 ];
-// const areaColor = ["rgba(78,85,117,0.2)", "rgba(63,70,102,0.5)"];
 const defaultCityName = "平顶山市";
 export default {
   name: "echarts",

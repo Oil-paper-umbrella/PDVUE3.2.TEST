@@ -8,8 +8,8 @@
 require("echarts/map/js/province/henan");
 import optionPublicFun from "../../../utils/optionPublic.js";
 import optionMapFun from "./optionMap.js";
-require("echarts/lib/chart/map")
-require("echarts/lib/component/tooltip")
+require("echarts/lib/chart/map");
+require("echarts/lib/component/tooltip");
 export default {
   name: "map-chart",
   data() {
@@ -178,20 +178,44 @@ export default {
             }
           }
         }
-      ]
+      ],
+      yData: [],
+      barData: []
     };
   },
   created() {
     this.$nextTick(() => {
+      this.dataInit();
       this.mapCharts();
     });
   },
   methods: {
+    dataInit(){
+      this.barData = this.datas;
+      for (let i = 0; i < this.barData.length - 1; i++) {
+        for (let j = 0; j < this.barData.length - 1 - i; j++) {
+          if (this.barData[j].value < this.barData[j + 1].value) {
+            let temp = this.barData[j];
+            this.barData[j] = this.barData[j + 1];
+            this.barData[j + 1] = temp;
+          }
+        }
+      }
+      for (let i = 0; i < this.barData.length - 1; i++) {
+        this.yData.push(i + this.barData[i].name);
+      }
+    },
     mapCharts() {
       this.myChart = new optionPublicFun().init("map-container");
       this.myChart.setOption({
+        title: new optionMapFun().mapTitle(),
         tooltip: new optionMapFun().mapTooltip(),
-        series: new optionMapFun().mapSeries(this.datas)
+        grid: new optionMapFun().mapBarGrid(),
+        xAxis: {
+          show: false
+        },
+        yAxis: new optionMapFun().mapBarYaxis(this.yData),
+        series: new optionMapFun().mapBarSeries(this.datas,this.barData)
       });
     }
   }

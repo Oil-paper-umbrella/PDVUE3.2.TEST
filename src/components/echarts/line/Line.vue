@@ -41,7 +41,26 @@ const selectedCity = {
   周口: false,
   驻马店: false
 };
-const colors = ["#FCD85A", "#0084C8", "#D8514B", "#9CCB63"];
+const colors = [
+  "#600000",
+  "#D9006C",
+  "#AE00AE",
+  "#6F00D2",
+  "#FF60AF",
+  "#B15BFF",
+  "#0000C6",
+  "#009393",
+  "#FF0000",
+  "#01B468",
+  "#2894FF",
+  "#00FFFF",
+  "#F0FFF0",
+  "#79FF79",
+  "#424200",
+  "#844200",
+  "#FFFF37",
+  "#FF8F59"
+];
 const defaultCityName = "平顶山";
 export default {
   name: "echarts",
